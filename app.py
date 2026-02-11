@@ -15,6 +15,10 @@ from pages.tamil_playlist import render_tamil_playlist
 from pages.my_rituals import render_my_rituals
 from pages.healing_practices import render_healing_practices
 from pages.app_hits import load_app_hits, get_hit_stats
+from pages.soulprompt import render_soulprompt
+from pages.soulprompt_pins import render_soulprompt_pins
+
+
 
 # 🔧 Data imports
 from data.composers import composer_thumbnails, composer_bios, composer_playlists
@@ -22,6 +26,8 @@ from data.singers import singer_thumbnails, singer_bios, singer_playlists
 from data.config import PAGE_NAMES
 from pages.app_hits import log_app_hit
 from pages.my_rituals_dashboard import render_ritual_dashboard
+
+st.session_state.pinned_replies = []
 
 # Log the visit
 if "hit_logged" not in st.session_state:
@@ -42,8 +48,9 @@ st.sidebar.title("🧘 Soulvest Navigation")
 nav_options = [
     "Home", "Morning Affirmation", "Night Affirmation", "Healing Chants",
     "Personalized Rituals", "Playlist Explorer",
-    "My Rituals", "Feedback","Healing Practices"
+    "My Rituals", "Feedback", "Healing Practices", "SoulPrompt", "My SoulPrompt Pins"
 ]
+
 
 selected = st.sidebar.radio("Go to:", nav_options, key="sidebar_nav")
 
@@ -77,6 +84,10 @@ elif st.session_state.page == "Healing Practices":
     render_healing_practices()    
 elif page == "Feedback":
     render_feedback_section()
+elif page == "SoulPrompt":
+    render_soulprompt()
+elif page == "My SoulPrompt Pins":
+    render_soulprompt_pins()    
 else:
     st.error(f"⚠️ Unknown page: {page}")
     render_home()
